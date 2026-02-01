@@ -33,10 +33,21 @@
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
       body {
-        font-family: "Inter", sans-serif;
-        /* Smooth scrolling for internal links */
-        scroll-behavior: smooth;
-      }
+            font-family: "Inter", sans-serif;
+            scroll-behavior: smooth;
+            /* Use the exact filename of the image you uploaded */
+            background-image: url(b2.png);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #000; /* Fallback color */
+        }
+
+        /* This allows the background to show through all sections */
+        section, main {
+            background-color: transparent !important;
+        }
 
       /* Custom styling for the profile image rectangles */
       .profile-rectangle {
@@ -49,18 +60,18 @@
 
       /* Base styles for all event cards */
       .event-card-base {
-        background-color: #0a0a0a; /* Dark background */
-        border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border for default cards */
-        transition: all 0.3s ease-in-out; /* Smooth transitions */
-        padding: 1.5rem; /* Slightly reduced padding to match design */
+        background-color: rgba(10, 10, 10, 0.8); /* Changed to 80% opacity */
+        backdrop-filter: blur(10px); /* Adds a high-end glass effect */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease-in-out;
+        padding: 1.5rem;
         border-radius: 1rem;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        text-align: left; /* Ensure text is left-aligned */
-        /* NEW UNIFORM HEIGHT */
+        text-align: left;
         min-height: 260px;
-      }
+    }
 
       .event-card-base:hover {
         box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05); /* Subtle hover shadow */
@@ -69,11 +80,10 @@
 
       /* Specific styles for the "Upcoming" (featured) event card */
       .upcoming-event-card {
-        background-color: #0a0a0a; /* Same dark background */
-        border: 2px solid #a087ff; /* Solid purple border */
-        box-shadow: 0 0 25px rgba(160, 135, 255, 0.3); /* Purple glow */
-        /* REMOVED custom min-height here to ensure uniformity */
-      }
+        background-color: rgba(10, 10, 10, 0.9); /* Slightly darker for importance */
+        border: 2px solid #a087ff;
+        box-shadow: 0 0 25px rgba(160, 135, 255, 0.3);
+    }
       .upcoming-event-card:hover {
         box-shadow: 0 0 35px rgba(160, 135, 255, 0.5); /* More prominent hover glow */
         transform: translateY(-2px); /* Slight lift on hover */
