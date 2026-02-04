@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IEEE Women In Engineering</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+tailwind.config = {
+theme: {
+extend: {
+fontFamily: {
+sans: ['Inter', 'sans-serif'],
+},
+colors: {
+"lavender-soft": "#E9E3FF",
+"lavender": "#B39DFF",
+"deep-purple": "#7B61FF",
+"dark-purple": "#2D1F55",
+"glass-white": "rgba(255,255,255,0.55)"
+},
+boxShadow: {
+'3xl': '0 15px 60px -15px rgba(123, 97, 255, 0.4)',
+}
+}
+}
+}
+</script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+body{
+font-family: 'Inter', sans-serif;
+scroll-behavior: smooth;
+background: url("bg.jpg") center/cover fixed no-repeat;
+}
+
+/* Glass effect for sections */
+.glass{
+backdrop-filter: blur(12px);
+background: rgba(255,255,255,0.55);
+border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Navbar glass effect */
+header{
+backdrop-filter: blur(10px);
+background: rgba(255,255,255,0.35);
+}
+
+/* Profile cards */
+.profile-rectangle{
+border: 1px solid rgba(123,97,255,0.4);
+background: rgba(255,255,255,0.4);
+}
+
+/* ----- GLASS EFFECT FOR EVENT CARDS ----- */
+.glass-card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(255,255,255,0.08);
+}
+
+/* Horizontal scroll container */
+.event-scroll-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.event-scroll {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 10px;
+    scrollbar-width: none; /* Firefox */
+}
+
+.event-scroll::-webkit-scrollbar {
+    display: none; /* Chrome */
+}
+
+/* Arrow buttons */
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    z-index: 10;
+}
+
+.scroll-left { left: -10px; }
+.scroll-right { right: -10px; }
+
+.scroll-btn:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+/* Fix card width for horizontal layout */
+.event-card-h {
+    min-width: 340px;
+}
+</style>
+</head>
+
+<body class="text-dark-purple min-h-screen">
+
+<header class="fixed top-0 left-0 w-full z-20 shadow-lg p-4">
+<div class="max-w-7xl mx-auto flex justify-between items-center">
+
+<img src="https://placehold.co/40x40/B39DFF/FFFFFF?text=WIE" class="h-10">
+
+<nav class="hidden md:flex space-x-8 font-semibold">
+<a href="#home" class="hover:text-deep-purple">HOME</a>
+<a href="#events" class="hover:text-deep-purple">EVENTS</a>
+<a href="#gallery" class="hover:text-deep-purple">GALLERY</a>
+<a href="#team" class="hover:text-deep-purple">OUR TEAM</a>
+<a href="#join-team" class="hover:text-deep-purple">JOIN TEAM</a>
+</nav>
+
+</div>
+</header>
+
+<main class="pt-24">
+
+<!-- HOME -->
+<section align = "center" id="home" class="min-h-[60vh] flex items-center justify-center pt-24 pb-12">
+            <div class="max-w-5xl">
+                
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-wie-white mb-4 tracking-widest uppercase">
+                    IEEE
+                </h1>
+                
+                <h2 class="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-extrabold text-wie-purple leading-none mb-8 tracking-normal sm:tracking-tighter uppercase">
+                    WOMEN IN ENGINEERING
+                </h2>
+                
+                <p class="text-sm sm:text-lg font-medium text-wie-white tracking-widest uppercase mt-4">
+                    EMPOWERING WOMEN IN ENGINEERING
+                </p>
+            </div>
+</section>
+
+<!-- WOMEN EMPOWERMENT -->
+<section align = "center" class="min-h-[60vh] flex items-center justify-center pt-24 pb-12">
+             <div class="max-w-4xl mx-auto">
+                <p class="text-4xl sm:text-5xl font-extrabold text-wie-purple leading-none mb-2 tracking-tight">
+                    Women Empowerment
+                </p>
+                <p class="text-3xl sm:text-4xl font-light text-wie-white leading-tight tracking-wide">
+                    Leadership and Diversity in STEM
+                </p>
+            </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events" class="py-24 flex items-center justify-center">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Title -->
+    <h2 class="text-5xl sm:text-5xl font-extrabold text-center mb-12 tracking-tighter">
+      <span class="text-purple">Our</span>
+      <span class="text-purple">Events</span>
+    </h2>
+
+    <!-- Scrollable Event Container -->
+    <div class="relative">
+      <!-- Scroll Buttons -->
+      <button class="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white/30 hover:bg-white/50 text-purple-900 rounded-full p-3 shadow-lg"
+              onclick="scrollEvents(-350)">❮</button>
+      <button class="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white/30 hover:bg-white/50 text-purple-900 rounded-full p-3 shadow-lg"
+              onclick="scrollEvents(350)">❯</button>
+
+      <!-- Event Cards Scroll Wrapper -->
+      <div id="eventContainer" class="flex gap-6 overflow-x-auto scroll-smooth scrollbar-hide">
+        <!-- EVENT 1: Upcoming -->
+        <div class="flex-none w-80 bg-white/20 border border-purple-900 rounded-xl p-6 shadow-lg relative">
+          <span class="absolute top-4 left-4 bg-purple-900 text-white font-bold text-xs px-3 py-1 rounded-full">UPCOMING</span>
+          <h3 class="text-2xl font-bold text-purple-900 mt-6">Big Event Name</h3>
+          <p class="text-purple-900/80 mt-3">Short description of the event goes here. This is our main upcoming featured event!</p>
+        </div>
+
+        <!-- EVENT 2: Past -->
+        <div class="flex-none w-80 bg-white/20 border border-purple-700 rounded-xl p-6 shadow-lg relative">
+          <span class="absolute top-4 left-4 bg-purple-700 text-white font-bold text-xs px-3 py-1 rounded-full">PAST</span>
+          <h3 class="text-2xl font-bold text-purple-900 mt-6">Past Event Title</h3>
+          <p class="text-purple-900/80 mt-3">Description of a previous success. A great networking and learning session.</p>
+        </div>
+
+        <!-- EVENT 3: Past -->
+        <div class="flex-none w-80 bg-white/20 border border-purple-700 rounded-xl p-6 shadow-lg relative">
+          <span class="absolute top-4 left-4 bg-purple-700 text-white font-bold text-xs px-3 py-1 rounded-full">PAST</span>
+          <h3 class="text-2xl font-bold text-purple-900 mt-6">Previous Workshop</h3>
+          <p class="text-purple-900/80 mt-3">A successful workshop focused on AI and Machine Learning trends.</p>
+        </div>
+
+        <!-- EVENT 4: Upcoming -->
+        <div class="flex-none w-80 bg-white/20 border border-purple-900 rounded-xl p-6 shadow-lg relative">
+          <span class="absolute top-4 left-4 bg-purple-900 text-white font-bold text-xs px-3 py-1 rounded-full">UPCOMING</span>
+          <h3 class="text-2xl font-bold text-purple-900 mt-6">Tech Meetup</h3>
+          <p class="text-purple-900/80 mt-3">An engaging meetup for tech enthusiasts to share ideas and network.</p>
+        </div>
+
+        <!-- EVENT 5: Past -->
+        <div class="flex-none w-80 bg-white/20 border border-purple-700 rounded-xl p-6 shadow-lg relative">
+          <span class="absolute top-4 left-4 bg-purple-700 text-white font-bold text-xs px-3 py-1 rounded-full">PAST</span>
+          <h3 class="text-2xl font-bold text-purple-900 mt-6">Coding Bootcamp</h3>
+          <p class="text-purple-900/80 mt-3">A successful bootcamp covering front-end and back-end development.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="py-24 flex items-center justify-center">
+<div class="max-w-7xl mx-auto px-6 w-full">
+
+<h2 class="text-5xl sm:text-6xl font-extrabold text-center mb-12 text-indigo-900 tracking-tight">
+Gallery
+</h2>
+
+<!-- ===== FLIP CARD GALLERY START ===== -->
+<div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+
+<!-- CARD 1 -->
+<div class="flip-card w-full h-[480px]">
+  <div class="flip-card-inner">
+
+    <div class="flip-card-front rounded-2xl shadow-xl overflow-hidden border border-indigo-200">
+      <img src="img1.jpg" class="w-full h-full object-cover">
+    </div>
+
+    <div class="flip-card-back flex items-center justify-center text-center p-6 bg-dark-purple text-white rounded-2xl shadow-xl">
+      <div>
+        <h3 class="text-2xl font-bold">Event 1</h3>
+        <p class="mt-2">IEEE Technical Workshop</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CARD 2 -->
+<div class="flip-card w-full h-[480px]">
+  <div class="flip-card-inner">
+
+    <div class="flip-card-front rounded-2xl shadow-xl overflow-hidden border border-indigo-200">
+      <img src="img2.jpg" class="w-full h-full object-cover">
+    </div>
+
+    <div class="flip-card-back flex items-center justify-center text-center p-6 bg-dark-purple text-white rounded-2xl shadow-xl">
+      <div>
+        <h3 class="text-2xl font-bold">Event 2</h3>
+        <p class="mt-2">Coding Bootcamp</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CARD 3 -->
+<div class="flip-card w-full h-[480px]">
+  <div class="flip-card-inner">
+
+    <div class="flip-card-front rounded-2xl shadow-xl overflow-hidden border border-indigo-200">
+      <img src="img3.jpg" class="w-full h-full object-cover">
+    </div>
+
+    <div class="flip-card-back flex items-center justify-center text-center p-6 bg-dark-purple text-white rounded-2xl shadow-xl">
+      <div>
+        <h3 class="text-2xl font-bold">Event 3</h3>
+        <p class="mt-2">Tech Meetup</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+<!-- ===== FLIP CARD GALLERY END ===== -->
+
+</div>
+</section>
+
+<style>
+.flip-card {
+  perspective: 1200px;
+}
+
+.flip-card-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+</style>
+
+
+
+<!-- OUR TEAM -->
+<section id="team" class="py-24 relative">
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+<h2 class="text-5xl sm:text-6xl font-extrabold text-center mb-12 tracking-tighter">
+<span class="text-wie-white">Our</span>
+<span class="text-wie-purple">Team</span>
+</h2>
+
+<!-- LEFT ARROW -->
+<button id="scrollLeft"
+class="absolute left-4 top-1/2 -translate-y-1/2 bg-wie-purple text-black p-4 rounded-full shadow-lg z-10 hover:scale-105 text-xl">
+◀
+</button>
+
+<!-- HORIZONTAL SCROLL CONTAINER -->
+<div id="teamScroll"
+class="flex overflow-x-auto gap-12 scrollbar-hide scroll-smooth px-6">
+
+<!-- MEMBER 1 -->
+<div class="flex-shrink-0 flex flex-col items-center space-y-4 w-60">
+<div class="profile-rectangle w-60 h-60 rounded-2xl overflow-hidden">
+<img src="https://via.placeholder.com/240x240/1A1A1A/FFFFFF?text=Member+1"
+class="w-full h-full object-cover"/>
+</div>
+<h3 class="text-2xl font-bold text-wie-purple uppercase">Member 1</h3>
+<p class="text-base text-gray-400">Position</p>
+</div>
+
+<!-- MEMBER 2 -->
+<div class="flex-shrink-0 flex flex-col items-center space-y-4 w-60">
+<div class="profile-rectangle w-60 h-60 rounded-2xl overflow-hidden">
+<img src="https://via.placeholder.com/240x240/1A1A1A/FFFFFF?text=Member+2"
+class="w-full h-full object-cover"/>
+</div>
+<h3 class="text-2xl font-bold text-wie-purple uppercase">Member 2</h3>
+<p class="text-base text-gray-400">Position</p>
+</div>
+
+<!-- MEMBER 3 -->
+<div class="flex-shrink-0 flex flex-col items-center space-y-4 w-60">
+<div class="profile-rectangle w-60 h-60 rounded-2xl overflow-hidden">
+<img src="https://via.placeholder.com/240x240/1A1A1A/FFFFFF?text=Member+3"
+class="w-full h-full object-cover"/>
+</div>
+<h3 class="text-2xl font-bold text-wie-purple uppercase">Member 3</h3>
+<p class="text-base text-gray-400">Position</p>
+</div>
+
+<!-- MEMBER 4 -->
+<div class="flex-shrink-0 flex flex-col items-center space-y-4 w-60">
+<div class="profile-rectangle w-60 h-60 rounded-2xl overflow-hidden">
+<img src="https://via.placeholder.com/240x240/1A1A1A/FFFFFF?text=Member+4"
+class="w-full h-full object-cover"/>
+</div>
+<h3 class="text-2xl font-bold text-wie-purple uppercase">Member 4</h3>
+<p class="text-base text-gray-400">Position</p>
+</div>
+
+<!-- MEMBER 5 -->
+<div class="flex-shrink-0 flex flex-col items-center space-y-4 w-60">
+<div class="profile-rectangle w-60 h-60 rounded-2xl overflow-hidden">
+<img src="https://via.placeholder.com/240x240/1A1A1A/FFFFFF?text=Member+5"
+class="w-full h-full object-cover"/>
+</div>
+<h3 class="text-2xl font-bold text-wie-purple uppercase">Member 5</h3>
+<p class="text-base text-gray-400">Position</p>
+</div>
+
+<!-- MEMBER 6 -->
+<div class="flex-shrink-0 flex flex-col items-center space-y-4 w-60">
+<div class="profile-rectangle w-60 h-60 rounded-2xl overflow-hidden">
+<img src="https://via.placeholder.com/240x240/1A1A1A/FFFFFF?text=Member+6"
+class="w-full h-full object-cover"/>
+</div>
+<h3 class="text-2xl font-bold text-wie-purple uppercase">Member 6</h3>
+<p class="text-base text-gray-400">Position</p>
+</div>
+
+</div>
+
+<!-- RIGHT ARROW -->
+<button id="scrollRight"
+class="absolute right-4 top-1/2 -translate-y-1/2 bg-wie-purple text-black p-4 rounded-full shadow-lg z-10 hover:scale-105 text-xl">
+▶
+</button>
+
+</div>
+
+<script>
+const container = document.getElementById("teamScroll");
+
+document.getElementById("scrollLeft").addEventListener("click", () => {
+container.scrollBy({ left: -300, behavior: "smooth" });
+});
+
+document.getElementById("scrollRight").addEventListener("click", () => {
+container.scrollBy({ left: 300, behavior: "smooth" });
+});
+</script>
+
+</section>
+
+
+
+<!-- JOIN TEAM -->
+<section align = "center" id="join-team" class="min-h-[60vh] flex items-center justify-center pt-24 pb-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="p-16 md:p-24 bg-white rounded-3xl border-4 border-wie-purple shadow-3xl shadow-wie-purple/50">
+                    
+                    <h2 class="text-5xl sm:text-6xl font-extrabold text-wie-white mb-6 tracking-tight">
+                        Ready to make an impact?
+                    </h2>
+                    <p class="text-xl text-gray-400 mb-10">
+                        Join our mission to empower women in engineering and technology.
+                    </p>
+                    
+                    <button class="px-10 py-4 bg-wie-purple text-black font-bold text-xl uppercase rounded-full shadow-lg transition duration-300 hover:bg-wie-purple/80 hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-wie-purple focus:ring-opacity-50 tracking-wider">
+                        JOIN NOW
+                    </button>
+                </div>
+            </div>
+</section>
+</main>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            const toggleMenu = () => {
+                const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true' || false;
+                menuBtn.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+            };
+            
+            menuBtn.addEventListener('click', toggleMenu);
+            // Close menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                         toggleMenu();
+                    }
+                });
+            });
+        });
+        const eventContainer = document.getElementById('eventContainer');
+
+  function scrollEvents(value) {
+    const container = document.getElementById('eventContainer');
+    container.scrollBy({ left: value, behavior: 'smooth' });
+  }
+    </script>
+</main>
+
+<footer>
+    <h5 Style = "background-color: #2B0A3D; color: white; padding: 20px;" align = "center">@Contact us WIE</h5>
+</footer>
+</body>
+</html>

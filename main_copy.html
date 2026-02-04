@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEEE Women In Engineering - Dark Theme</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Custom Purple color matching the design
+                        'wie-purple': '#A087FF', 
+                        // Using near-white for general text
+                        'wie-white': '#FFFFFF',
+                        // A slightly lighter black for contrast
+                        'wie-dark-bg': '#0A0A0A',
+                    },
+                    // Added custom shadow for the join section
+                    boxShadow: {
+                        '3xl': '0 15px 60px -15px rgba(160, 135, 255, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body { 
+            font-family: 'Inter', sans-serif; 
+            /* Smooth scrolling for internal links */
+            scroll-behavior: smooth;
+        }
+
+        /* Custom styling for the profile image rectangles */
+        .profile-rectangle {
+            /* 1px solid white border with a bit of transparency */
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            background-color: #111;
+        }
+
+        /* --- Event Card Styles --- */
+        
+        /* Base styles for all event cards */
+        .event-card-base {
+            background-color: #0A0A0A; /* Dark background */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border for default cards */
+            transition: all 0.3s ease-in-out; /* Smooth transitions */
+            padding: 1.5rem; /* Slightly reduced padding to match design */
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: left; /* Ensure text is left-aligned */
+            /* NEW UNIFORM HEIGHT */
+            min-height: 260px; 
+        }
+
+        .event-card-base:hover {
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05); /* Subtle hover shadow */
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Specific styles for the "Upcoming" (featured) event card */
+        .upcoming-event-card {
+            background-color: #0A0A0A; /* Same dark background */
+            border: 2px solid #A087FF; /* Solid purple border */
+            box-shadow: 0 0 25px rgba(160, 135, 255, 0.3); /* Purple glow */
+            /* REMOVED custom min-height here to ensure uniformity */
+        }
+        .upcoming-event-card:hover {
+            box-shadow: 0 0 35px rgba(160, 135, 255, 0.5); /* More prominent hover glow */
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+
+        /* Styles for labels (Upcoming/Past) */
+        .event-label {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px; /* Fully rounded */
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 600; /* font-semibold */
+            text-transform: uppercase;
+            margin-bottom: 1rem; /* Space below label */
+        }
+        .label-upcoming {
+            background-color: #A087FF; /* Purple background */
+            color: #0A0A0A; /* Dark text for contrast */
+        }
+        .label-past {
+            background-color: #333; /* Dark grey background */
+            color: #BBB; /* Lighter grey text */
+        }
+
+        /* Event name styles */
+        .event-title {
+            font-size: 1.75rem; /* text-3xl for big event */
+            font-weight: 700; /* font-bold */
+            color: #FFFFFF;
+            margin-bottom: 0.5rem;
+            line-height: 1.2; /* Tighter line height for titles */
+        }
+        .event-title-past {
+            font-size: 1.5rem; /* text-2xl for past events */
+            font-weight: 700; /* font-bold */
+            color: #FFFFFF;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        /* Event description styles */
+        .event-description {
+            font-size: 1rem; /* text-base */
+            color: #BBB; /* Lighter grey for descriptions */
+            flex-grow: 1; /* Allows description to take available space */
+        }
+    </style>
+</head>
+<body class="bg-black text-wie-white min-h-screen"> 
+
+    <header class="fixed top-0 left-0 w-full z-20 bg-black/90 shadow-lg p-4 md:p-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-12">
+                
+                <div class="flex-shrink-0 flex items-center">
+                    <img src="66e94c19c51b811d3511928c18d9e58d.png" 
+                            alt="IEEE Women In Engineering Logo" 
+                            class="h-10 w-auto"
+                            onerror="this.onerror=null; this.src='https://placehold.co/40x40/B288C4/FFFFFF?text=WIE';"
+                    >
+                </div>
+                
+                <nav class="hidden md:block">
+                    <div class="flex items-baseline space-x-8">
+                        <a href="#home" class="text-white text-sm font-semibold tracking-wider uppercase hover:text-wie-purple transition duration-150">HOME</a>
+                        <a href="#events" class="text-white text-sm font-semibold tracking-wider uppercase hover:text-wie-purple transition duration-150">EVENTS</a>
+                        <a href="#gallery" class="text-white text-sm font-semibold tracking-wider uppercase hover:text-wie-purple transition duration-150">GALLERY</a>
+                        <a href="#team" class="text-white text-sm font-semibold tracking-wider uppercase hover:text-wie-purple transition duration-150">OUR TEAM</a>
+                        <a href="#join-team" class="text-white text-sm font-semibold tracking-wider uppercase hover:text-wie-purple transition duration-150">JOIN TEAM</a>
+                    </div>
+                </nav>
+
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" type="button" class="p-2 rounded-md text-white hover:text-wie-purple" aria-expanded="false">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="md:hidden hidden bg-wie-purple/5" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="text-white hover:bg-wie-purple block px-3 py-2 rounded-md text-base font-medium">HOME</a>
+                <a href="#events" class="text-white hover:bg-wie-purple block px-3 py-2 rounded-md text-base font-medium">EVENTS</a>
+                <a href="#gallery" class="text-white hover:bg-wie-purple block px-3 py-2 rounded-md text-base font-medium">GALLERY</a>
+                <a href="#team" class="text-white hover:bg-wie-purple block px-3 py-2 rounded-md text-base font-medium">OUR TEAM</a>
+                <a href="#join-team"  class="text-white hover:bg-wie-purple block px-3 py-2 rounded-md text-base font-medium">JOIN TEAM</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="text-center p-4 pt-16 sm:pt-20 md:pt-24 bg-black mt-4"> 
+        
+        <section id="home" class="min-h-[60vh] flex items-center justify-center pt-24 pb-12">
+            <div class="max-w-5xl">
+                
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold text-wie-white mb-4 tracking-widest uppercase">
+                    IEEE
+                </h1>
+                
+                <h2 class="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-extrabold text-wie-purple leading-none mb-8 tracking-normal sm:tracking-tighter uppercase">
+                    WOMEN IN ENGINEERING
+                </h2>
+                
+                <p class="text-sm sm:text-lg font-medium text-wie-white tracking-widest uppercase mt-4">
+                    EMPOWERING WOMEN IN ENGINEERING
+                </p>
+            </div>
+        </section>
+
+        <section class="py-24 md:py-48 bg-black">
+             <div class="max-w-4xl mx-auto">
+                <p class="text-4xl sm:text-5xl font-extrabold text-wie-purple leading-none mb-2 tracking-tight">
+                    Women Empowerment
+                </p>
+                <p class="text-3xl sm:text-4xl font-light text-wie-white leading-tight tracking-wide">
+                    Leadership and Diversity in STEM
+                </p>
+            </div>
+        </section>
+
+        <section id="events" class="py-24 md:py-32 bg-black scroll-mt-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <h2 class="text-5xl sm:text-5xl font-extrabold text-center mb-16 tracking-tighter">
+                    <span class="text-wie-white">Our</span> <span class="text-wie-purple">Events</span>
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+
+                    <div class="event-card-base upcoming-event-card">
+                        <div>
+                            <span class="event-label label-upcoming">Upcoming</span>
+                            <h3 class="event-title">Big Event Name</h3>
+                        </div>
+                        <p class="event-description">Short description of the event goes here. This is our main upcoming featured event!</p>
+                    </div>
+
+                    <div class="event-card-base">
+                        <div>
+                            <span class="event-label label-past">Past</span>
+                            <h3 class="event-title-past">Past Event Title</h3>
+                        </div>
+                        <p class="event-description">Description of a previous success. A great networking and learning session.</p>
+                    </div>
+
+                    <div class="event-card-base">
+                         <div>
+                            <span class="event-label label-past">Past</span>
+                            <h3 class="event-title-past">Previous Workshop</h3>
+                        </div>
+                        <p class="event-description">A successful workshop focused on AI and Machine Learning trends.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="py-24 md:py-32 bg-black scroll-mt-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <h2 class="text-5xl sm:text-6xl font-extrabold text-center mb-16 text-wie-white tracking-tighter">
+                    Gallery
+                </h2>
+
+                <div class="max-w-4xl mx-auto">
+                    <div class="w-full h-64 md:h-96 bg-wie-dark-bg rounded-3xl border border-gray-700 overflow-hidden relative shadow-2xl">
+                        <div class="w-full h-full bg-gradient-to-b from-blue-300 to-green-500 relative">
+                            <div class="absolute inset-0 bg-gradient-to-b from-blue-300 via-blue-200 to-blue-100"></div>
+                            
+                            <div class="absolute top-1/4 left-1/4 w-16 h-10 bg-white rounded-full shadow-md z-10 -ml-8 -mt-5"></div>
+                            <div class="absolute top-1/4 right-1/4 w-24 h-16 bg-white rounded-full shadow-md z-10 -mr-12 -mt-8"></div>
+                            
+                            <svg class="absolute bottom-0 w-full h-1/2" viewBox="0 0 100 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 50 L0 30 C 25 10, 75 10, 100 30 L100 50 Z" fill="#6B8E23"/>
+                                <path d="M0 50 L0 40 C 30 20, 70 20, 100 40 L100 50 Z" fill="#8AC03D"/>
+                                <path d="M0 50 L0 45 C 35 35, 65 35, 100 45 L100 50 Z" fill="#9ACD32"/>
+                            </svg>
+                            
+                            <div class="absolute bottom-1/2 left-10 transform translate-y-1/2">
+                                <div class="w-1 h-1 bg-white rounded-full"></div>
+                                <div class="w-2 h-0.5 bg-gray-500"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="team" class="py-24 md:py-32 bg-black scroll-mt-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <h2 class="text-5xl sm:text-6xl font-extrabold text-center mb-16 tracking-tighter">
+                    <span class="text-wie-white">Our</span> <span class="text-wie-purple">Team</span>
+                </h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                    
+                    <div class="flex flex-col items-center space-y-3">
+                        <div class="profile-rectangle w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-xl flex items-center justify-center transition duration-300 hover:shadow-xl hover:shadow-wie-purple/20 hover:border-wie-purple/50">
+                            <img src="https://via.placeholder.com/192x192/1A1A1A/FFFFFF?text=Member+1" 
+                                 alt="Team Member 1 Name" 
+                                 class="w-full h-full object-cover rounded-xl" />
+                        </div>
+                        <h3 class="text-xl font-bold text-wie-purple uppercase">Member 1 Name</h3>
+                        <p class="text-sm text-gray-400 font-medium">Position</p>
+                    </div>
+
+                    <div class="flex flex-col items-center space-y-3">
+                        <div class="profile-rectangle w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-xl flex items-center justify-center transition duration-300 hover:shadow-xl hover:shadow-wie-purple/20 hover:border-wie-purple/50">
+                            <img src="https://via.placeholder.com/192x192/1A1A1A/FFFFFF?text=Member+2" 
+                                 alt="Team Member 2 Name" 
+                                 class="w-full h-full object-cover rounded-xl" />
+                        </div>
+                        <h3 class="text-xl font-bold text-wie-purple uppercase">Member 2 Name</h3>
+                        <p class="text-sm text-gray-400 font-medium">Position</p>
+                    </div>
+
+                    <div class="flex flex-col items-center space-y-3">
+                        <div class="profile-rectangle w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-xl flex items-center justify-center transition duration-300 hover:shadow-xl hover:shadow-wie-purple/20 hover:border-wie-purple/50">
+                            <img src="https://via.placeholder.com/192x192/1A1A1A/FFFFFF?text=Member+3" 
+                                 alt="Team Member 3 Name" 
+                                 class="w-full h-full object-cover rounded-xl" />
+                        </div>
+                        <h3 class="text-xl font-bold text-wie-purple uppercase">Member 3 Name</h3>
+                        <p class="text-sm text-gray-400 font-medium">Position</p>
+                    </div>
+
+                    <div class="flex flex-col items-center space-y-3">
+                        <div class="profile-rectangle w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-xl flex items-center justify-center transition duration-300 hover:shadow-xl hover:shadow-wie-purple/20 hover:border-wie-purple/50">
+                            <img src="https://via.placeholder.com/192x192/1A1A1A/FFFFFF?text=Member+4" 
+                                 alt="Team Member 4 Name" 
+                                 class="w-full h-full object-cover rounded-xl" />
+                        </div>
+                        <h3 class="text-xl font-bold text-wie-purple uppercase">Member 4 Name</h3>
+                        <p class="text-sm text-gray-400 font-medium">Position</p>
+                    </div>
+
+                    <div class="flex flex-col items-center space-y-3">
+                        <div class="profile-rectangle w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-xl flex items-center justify-center transition duration-300 hover:shadow-xl hover:shadow-wie-purple/20 hover:border-wie-purple/50">
+                            <img src="https://via.placeholder.com/192x192/1A1A1A/FFFFFF?text=Member+5" 
+                                 alt="Team Member 5 Name" 
+                                 class="w-full h-full object-cover rounded-xl" />
+                        </div>
+                        <h3 class="text-xl font-bold text-wie-purple uppercase">Member 5 Name</h3>
+                        <p class="text-sm text-gray-400 font-medium">Position</p>
+                    </div>
+
+                    <div class="flex flex-col items-center space-y-3">
+                        <div class="profile-rectangle w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-xl flex items-center justify-center transition duration-300 hover:shadow-xl hover:shadow-wie-purple/20 hover:border-wie-purple/50">
+                            <img src="https://via.placeholder.com/192x192/1A1A1A/FFFFFF?text=Member+6" 
+                                 alt="Team Member 6 Name" 
+                                 class="w-full h-full object-cover rounded-xl" />
+                        </div>
+                        <h3 class="text-xl font-bold text-wie-purple uppercase">Member 6 Name</h3>
+                        <p class="text-sm text-gray-400 font-medium">Position</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <section id="join-team" class="py-24 md:py-32 bg-black">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="p-16 md:p-24 bg-black rounded-3xl border-4 border-wie-purple shadow-3xl shadow-wie-purple/50">
+                    
+                    <h2 class="text-5xl sm:text-6xl font-extrabold text-wie-white mb-6 tracking-tight">
+                        Ready to make an impact?
+                    </h2>
+                    <p class="text-xl text-gray-400 mb-10">
+                        Join our mission to empower women in engineering and technology.
+                    </p>
+                    
+                    <button class="px-10 py-4 bg-wie-purple text-black font-bold text-xl uppercase rounded-full shadow-lg transition duration-300 hover:bg-wie-purple/80 hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-wie-purple focus:ring-opacity-50 tracking-wider">
+                        JOIN NOW
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            const toggleMenu = () => {
+                const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true' || false;
+                menuBtn.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+            };
+            
+            menuBtn.addEventListener('click', toggleMenu);
+            // Close menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                         toggleMenu();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
