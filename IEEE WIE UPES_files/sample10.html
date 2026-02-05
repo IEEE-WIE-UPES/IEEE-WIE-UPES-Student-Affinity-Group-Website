@@ -121,56 +121,6 @@
         color: #bbb; /* Lighter grey for descriptions */
         flex-grow: 1; /* Allows description to take available space */
       }
-     /* --- Team Section Seamless Blend Fix --- */
-    #team {
-        position: relative;
-        /* Ensure the main section is pure black to match the rest of the site */
-        background-color: #000000; 
-        z-index: 1;
-    }
-
-    #bg-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        overflow: hidden;
-        pointer-events: none;
-    }
-
-    /* This creates the "fade" effect so you don't see a harsh color line */
-    #bg-container::before,
-    #bg-container::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        width: 100%;
-        height: 25%; /* Adjust this percentage to make the fade longer or shorter */
-        z-index: 2;
-    }
-
-    #bg-container::before {
-        top: 0;
-        background: linear-gradient(to bottom, #000000, transparent);
-    }
-
-    #bg-container::after {
-        bottom: 0;
-        background: linear-gradient(to top, #000000, transparent);
-    }
-
-    #bg-watermark {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        /* Keeping the watermark subtle and dark */
-        filter: blur(30px) brightness(0.3) grayscale(100%);
-        opacity: 0.15;
-        transform: scale(1.1);
-        transition: all 0.8s ease-in-out;
-    }
     </style>
   </head>
   <body class="bg-black text-wie-white min-h-screen">
@@ -305,61 +255,115 @@
           </p>
         </div>
       </section>
-      
-      <section id="team" class="relative py-32 min-h-screen flex items-center justify-center overflow-hidden bg-black scroll-mt-24">
-  
-        <div id="bg-container">
-            <img id="bg-watermark" src="team1.jpeg" alt="Member Background">
-        </div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-4 w-full text-center">
-            <h2 class="text-5xl md:text-6xl font-black mb-24 tracking-tighter">
-            <span class="text-wie-white">Our</span> 
+      <section id="team" class="py-24 md:py-32 bg-black scroll-mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2
+            class="text-5xl sm:text-6xl font-extrabold text-center mb-16 tracking-tighter"
+          >
+            <span class="text-wie-white">Our</span>
             <span class="text-wie-purple">Team</span>
-            </h2>
+          </h2>
 
-            <div class="relative flex items-center justify-center min-h-[550px]">
-            
-            <div class="absolute left-10 lg:left-20 flex flex-col gap-24 hidden xl:flex">
-                <div onclick="jumpToMember(1)" class="member-bubble w-24 h-24 rounded-full border-2 border-white/10 overflow-hidden grayscale opacity-30 hover:opacity-100">
-                <img src="team2.jpeg" class="w-full h-full object-cover">
-                </div>
-                <div onclick="jumpToMember(2)" class="member-bubble w-32 h-32 rounded-full border-2 border-white/10 overflow-hidden grayscale opacity-30 hover:opacity-100 transform -translate-x-16">
-                <img src="team3.jpeg" class="w-full h-full object-cover">
-                </div>
-            </div>
-
-            <div id="featured-card" class="relative w-full max-w-md bg-[#0A0A0A]/80 backdrop-blur-2xl border border-white/10 rounded-[3rem] p-12 shadow-[0_0_60px_rgba(0,0,0,0.8)] transition-all duration-500">
-                <div class="flex flex-col items-center">
-                <div class="w-52 h-52 mb-10 p-1.5 border-2 border-wie-purple rounded-[2rem] overflow-hidden shadow-[0_0_40px_rgba(160,135,255,0.2)]">
-                    <img id="team-img" src="team1.jpeg" class="w-full h-full object-cover rounded-[1.8rem]" />
-                </div>
-                <h3 id="team-name" class="text-4xl font-black text-white uppercase tracking-tighter">Arya Sharma</h3>
-                <p id="team-pos" class="text-wie-purple font-bold text-xl mt-3 tracking-[0.25em]">LEAD COORDINATOR</p>
-                
-                <div class="flex mt-14 w-full border-t border-white/5 pt-10 gap-10">
-                    <button onclick="prevMember()" class="flex-1 flex justify-center text-white/50 hover:text-wie-purple transition-all transform active:scale-90">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
-                    </button>
-                    <button onclick="nextMember()" class="flex-1 flex justify-center text-white/50 hover:text-wie-purple transition-all transform active:scale-90">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                    </button>
-                </div>
-                </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="flex flex-col items-center space-y-3">
+              <div
+                class="profile-rectangle w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-xl flex items-center justify-center transition duration-300 hover:shadow-xl hover:shadow-wie-purple/20 hover:border-wie-purple/50"
+              >
+                <img
+                  src="https://via.placeholder.com/192x192/1A1A1A/FFFFFF?text=Member+1"
+                  alt="Team Member 1 Name"
+                  class="w-full h-full object-cover rounded-xl"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-wie-purple uppercase">
+                Member 1 Name
+              </h3>
+              <p class="text-sm text-gray-400 font-medium">Position</p>
             </div>
 
-            <div class="absolute right-10 lg:right-20 flex flex-col gap-24 hidden xl:flex">
-                <div onclick="jumpToMember(3)" class="member-bubble w-32 h-32 rounded-full border-2 border-white/10 overflow-hidden grayscale opacity-30 hover:opacity-100 transform translate-x-16">
-                <img src="team4.jpeg" class="w-full h-full object-cover">
-                </div>
-                <div onclick="jumpToMember(4)" class="member-bubble w-24 h-24 rounded-full border-2 border-white/10 overflow-hidden grayscale opacity-30 hover:opacity-100">
-                <img src="team1.jpeg" class="w-full h-full object-cover">
-                </div>
+            <div class="flex flex-col items-center space-y-3">
+              <div
+                class="profile-rectangle w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-xl flex items-center justify-center transition duration-300 hover:shadow-xl hover:shadow-wie-purple/20 hover:border-wie-purple/50"
+              >
+                <img
+                  src="https://via.placeholder.com/192x192/1A1A1A/FFFFFF?text=Member+2"
+                  alt="Team Member 2 Name"
+                  class="w-full h-full object-cover rounded-xl"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-wie-purple uppercase">
+                Member 2 Name
+              </h3>
+              <p class="text-sm text-gray-400 font-medium">Position</p>
             </div>
-            
+
+            <div class="flex flex-col items-center space-y-3">
+              <div
+                class="profile-rectangle w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-xl flex items-center justify-center transition duration-300 hover:shadow-xl hover:shadow-wie-purple/20 hover:border-wie-purple/50"
+              >
+                <img
+                  src="https://via.placeholder.com/192x192/1A1A1A/FFFFFF?text=Member+3"
+                  alt="Team Member 3 Name"
+                  class="w-full h-full object-cover rounded-xl"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-wie-purple uppercase">
+                Member 3 Name
+              </h3>
+              <p class="text-sm text-gray-400 font-medium">Position</p>
             </div>
+
+            <div class="flex flex-col items-center space-y-3">
+              <div
+                class="profile-rectangle w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-xl flex items-center justify-center transition duration-300 hover:shadow-xl hover:shadow-wie-purple/20 hover:border-wie-purple/50"
+              >
+                <img
+                  src="https://via.placeholder.com/192x192/1A1A1A/FFFFFF?text=Member+4"
+                  alt="Team Member 4 Name"
+                  class="w-full h-full object-cover rounded-xl"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-wie-purple uppercase">
+                Member 4 Name
+              </h3>
+              <p class="text-sm text-gray-400 font-medium">Position</p>
+            </div>
+
+            <div class="flex flex-col items-center space-y-3">
+              <div
+                class="profile-rectangle w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-xl flex items-center justify-center transition duration-300 hover:shadow-xl hover:shadow-wie-purple/20 hover:border-wie-purple/50"
+              >
+                <img
+                  src="https://via.placeholder.com/192x192/1A1A1A/FFFFFF?text=Member+5"
+                  alt="Team Member 5 Name"
+                  class="w-full h-full object-cover rounded-xl"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-wie-purple uppercase">
+                Member 5 Name
+              </h3>
+              <p class="text-sm text-gray-400 font-medium">Position</p>
+            </div>
+
+            <div class="flex flex-col items-center space-y-3">
+              <div
+                class="profile-rectangle w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-xl flex items-center justify-center transition duration-300 hover:shadow-xl hover:shadow-wie-purple/20 hover:border-wie-purple/50"
+              >
+                <img
+                  src="https://via.placeholder.com/192x192/1A1A1A/FFFFFF?text=Member+6"
+                  alt="Team Member 6 Name"
+                  class="w-full h-full object-cover rounded-xl"
+                />
+              </div>
+              <h3 class="text-xl font-bold text-wie-purple uppercase">
+                Member 6 Name
+              </h3>
+              <p class="text-sm text-gray-400 font-medium">Position</p>
+            </div>
+          </div>
         </div>
-        </section>
+      </section>
 
       <section id="gallery" class="py-24 md:py-32 bg-black scroll-mt-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -552,71 +556,6 @@
         // RUN THE GALLERY LOADER HERE
     loadGallery();
   });
-
-  // 1. Your Team Data (Local only, no backend needed)
-        const teamMembers = [
-            { name: "Arya Sharma", pos: "LEAD COORDINATOR", img: "team1.jpeg" },
-            { name: "Sanya Kaur", pos: "TECHNICAL LEAD", img: "team2.jpeg" },
-            { name: "Priya Das", pos: "WEB DEVELOPER", img: "team3.jpeg" },
-            { name: "Ananya Roy", pos: "EVENT MANAGER", img: "team4.jpeg" },
-            { name: "Mehak Singh", pos: "UI/UX DESIGNER", img: "team1.jpeg" },
-            { name: "Riya Verma", pos: "OUTREACH HEAD", img: "team2.jpeg" }
-        ];
-
-        let currentIndex = 0;
-
-        // 2. The Core Update Function
-        function updateUI(index) {
-            const card = document.getElementById('featured-card');
-            const watermark = document.getElementById('bg-watermark');
-            const nameEl = document.getElementById('team-name');
-            const posEl = document.getElementById('team-pos');
-            const imgEl = document.getElementById('team-img');
-
-            if (!card || !watermark) return;
-
-            // Smooth transition out
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(15px) scale(0.98)';
-            watermark.style.opacity = '0';
-
-            setTimeout(() => {
-                // Update content from the array
-                nameEl.innerText = teamMembers[index].name;
-                posEl.innerText = teamMembers[index].pos;
-                imgEl.src = teamMembers[index].img;
-                watermark.src = teamMembers[index].img;
-
-                // Smooth transition in
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0) scale(1)';
-                watermark.style.opacity = '0.15';
-            }, 400);
-        }
-
-        // 3. Navigation Functions (Fixed to be global)
-        window.nextMember = function() {
-            currentIndex = (currentIndex + 1) % teamMembers.length;
-            updateUI(currentIndex);
-        };
-
-        window.prevMember = function() {
-            currentIndex = (currentIndex - 1 + teamMembers.length) % teamMembers.length;
-            updateUI(currentIndex);
-        };
-
-        window.jumpToMember = function(index) {
-            if (index >= 0 && index < teamMembers.length) {
-                currentIndex = index;
-                updateUI(currentIndex);
-            }
-        };
-
-        // 4. Initialization
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize the first member
-            updateUI(0);
-        });
 </script>
     
   </body>
