@@ -121,11 +121,29 @@
         color: #bbb; /* Lighter grey for descriptions */
         flex-grow: 1; /* Allows description to take available space */
       }
-     /* --- Team Section Seamless Blend Fix --- */
+      /* Hide scrollbar for the team navigator */
+    .team-nav-scroll::-webkit-scrollbar {
+        display: none;
+    }
+    .team-nav-scroll {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .nav-item {
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-item.active-member {
+        border-color: #A087FF;
+        background-color: rgba(160, 135, 255, 0.1);
+        transform: translateY(-5px);
+    }
+    /* Ensure the section is pure black to match the rest of the site */
     #team {
         position: relative;
-        /* Ensure the main section is pure black to match the rest of the site */
-        background-color: #000000; 
+        background-color: #000000;
         z-index: 1;
     }
 
@@ -140,14 +158,14 @@
         pointer-events: none;
     }
 
-    /* This creates the "fade" effect so you don't see a harsh color line */
+    /* Gradient overlays to blend the gray watermark into pure black */
     #bg-container::before,
     #bg-container::after {
         content: "";
         position: absolute;
         left: 0;
         width: 100%;
-        height: 25%; /* Adjust this percentage to make the fade longer or shorter */
+        height: 35%; /* Large fade area */
         z-index: 2;
     }
 
@@ -165,11 +183,56 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        /* Keeping the watermark subtle and dark */
-        filter: blur(30px) brightness(0.3) grayscale(100%);
-        opacity: 0.15;
-        transform: scale(1.1);
-        transition: all 0.8s ease-in-out;
+        filter: blur(40px) brightness(0.25) grayscale(100%);
+        opacity: 0.2;
+        transition: opacity 0.8s ease-in-out;
+    }
+
+
+        /* Navigator Item Styling */
+        .nav-item {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            min-width: 160px; /* Adjust based on how many you want visible */
+        }
+
+        .nav-item img {
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active-member img {
+            border-color: #A087FF;
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+
+        .nav-item.active-member p {
+            color: #A087FF;
+        }
+        /* Add this to your existing styles */
+      .team-nav-scroll {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+          mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      }
+      .nav-item img {
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Softens the edges of the horizontal scroll */
+    .team-nav-scroll {
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        scrollbar-width: none; 
+    }
+
+    /* Softer glassmorphism for the featured card */
+    #featured-card {
+        backdrop-blur: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(160, 135, 255, 0.2);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     }
     </style>
   </head>
@@ -183,35 +246,36 @@
             <img
               src="66e94c19c51b811d3511928c18d9e58d.png"
               alt="IEEE Women In Engineering Logo"
-              class="h-10 w-auto"
+              class="h-14 w-auto"
               onerror="this.onerror=null; this.src='https://placehold.co/40x40/B288C4/FFFFFF?text=WIE';"
+            />
+            <img
+              src="upes_logo.png"
+              alt="UPES"
+              class="h-14 w-auto"
+              onerror="this.onerror=null; this.src='https://placehold.co/40x40/B288C4/FFFFFF?text=UPES';"
             />
           </div>
 
           <nav class="hidden md:block">
             <div class="flex items-baseline space-x-8">
-              <a
-                href="#home"
-                class="text-white text-sm font-semibold tracking-wider uppercase hover:text-wie-purple transition duration-150"
-                >HOME</a
-              >
-              <a
-                href="#team"
-                class="text-white text-sm font-semibold tracking-wider uppercase hover:text-wie-purple transition duration-150"
-                >OUR TEAM</a
-              >
-              <a
-                href="#gallery"
-                class="text-white text-sm font-semibold tracking-wider uppercase hover:text-wie-purple transition duration-150"
-                >GALLERY</a
-              >
-              <a
-                href="#events"
-                class="text-white text-sm font-semibold tracking-wider uppercase hover:text-wie-purple transition duration-150"
-                >EVENTS</a
-              >
+              <a href="#home" class="text-white text-sm font-semibold tracking-wider uppercase hover:text-wie-purple transition duration-150">HOME</a>
+              <a href="#events" class="text-white text-sm font-semibold tracking-wider uppercase hover:text-wie-purple transition duration-150">OUR EVENTS</a>
+              <a href="#gallery" class="text-white text-sm font-semibold tracking-wider uppercase hover:text-wie-purple transition duration-150">OUR GALLERY</a>
+              <a href="#team" class="text-white text-sm font-semibold tracking-wider uppercase hover:text-wie-purple transition duration-150">OUR TEAM</a>
+              <a href="#join" class="text-white text-sm font-semibold tracking-wider uppercase hover:text-wie-purple transition duration-150">JOIN NOW</a>
             </div>
           </nav>
+
+          <div class="md:hidden hidden bg-wie-purple/5" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+              <a href="#home" class="text-white hover:bg-wie-purple block px-3 py-2 rounded-md text-base font-medium">HOME</a>
+              <a href="#events" class="text-white hover:bg-wie-purple block px-3 py-2 rounded-md text-base font-medium">OUR EVENTS</a>
+              <a href="#gallery" class="text-white hover:bg-wie-purple block px-3 py-2 rounded-md text-base font-medium">OUR GALLERY</a>
+              <a href="#team" class="text-white hover:bg-wie-purple block px-3 py-2 rounded-md text-base font-medium">OUR TEAM</a>
+              <a href="#join" class="text-white hover:bg-wie-purple block px-3 py-2 rounded-md text-base font-medium">JOIN NOW</a>
+            </div>
+          </div>
 
           <div class="md:hidden">
             <button
@@ -274,7 +338,7 @@
           <h1
             class="text-4xl sm:text-5xl md:text-7xl font-bold text-wie-white mb-4 tracking-widest uppercase"
           >
-            IEEE
+            UPES IEEE
           </h1>
 
           <h2
@@ -305,81 +369,6 @@
           </p>
         </div>
       </section>
-      
-      <section id="team" class="relative py-32 min-h-screen flex items-center justify-center overflow-hidden bg-black scroll-mt-24">
-  
-        <div id="bg-container">
-            <img id="bg-watermark" src="team1.jpeg" alt="Member Background">
-        </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-4 w-full text-center">
-            <h2 class="text-5xl md:text-6xl font-black mb-24 tracking-tighter">
-            <span class="text-wie-white">Our</span> 
-            <span class="text-wie-purple">Team</span>
-            </h2>
-
-            <div class="relative flex items-center justify-center min-h-[550px]">
-            
-            <div class="absolute left-10 lg:left-20 flex flex-col gap-24 hidden xl:flex">
-                <div onclick="jumpToMember(1)" class="member-bubble w-24 h-24 rounded-full border-2 border-white/10 overflow-hidden grayscale opacity-30 hover:opacity-100">
-                <img src="team2.jpeg" class="w-full h-full object-cover">
-                </div>
-                <div onclick="jumpToMember(2)" class="member-bubble w-32 h-32 rounded-full border-2 border-white/10 overflow-hidden grayscale opacity-30 hover:opacity-100 transform -translate-x-16">
-                <img src="team3.jpeg" class="w-full h-full object-cover">
-                </div>
-            </div>
-
-            <div id="featured-card" class="relative w-full max-w-md bg-[#0A0A0A]/80 backdrop-blur-2xl border border-white/10 rounded-[3rem] p-12 shadow-[0_0_60px_rgba(0,0,0,0.8)] transition-all duration-500">
-                <div class="flex flex-col items-center">
-                <div class="w-52 h-52 mb-10 p-1.5 border-2 border-wie-purple rounded-[2rem] overflow-hidden shadow-[0_0_40px_rgba(160,135,255,0.2)]">
-                    <img id="team-img" src="team1.jpeg" class="w-full h-full object-cover rounded-[1.8rem]" />
-                </div>
-                <h3 id="team-name" class="text-4xl font-black text-white uppercase tracking-tighter">Arya Sharma</h3>
-                <p id="team-pos" class="text-wie-purple font-bold text-xl mt-3 tracking-[0.25em]">LEAD COORDINATOR</p>
-                
-                <div class="flex mt-14 w-full border-t border-white/5 pt-10 gap-10">
-                    <button onclick="prevMember()" class="flex-1 flex justify-center text-white/50 hover:text-wie-purple transition-all transform active:scale-90">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
-                    </button>
-                    <button onclick="nextMember()" class="flex-1 flex justify-center text-white/50 hover:text-wie-purple transition-all transform active:scale-90">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                    </button>
-                </div>
-                </div>
-            </div>
-
-            <div class="absolute right-10 lg:right-20 flex flex-col gap-24 hidden xl:flex">
-                <div onclick="jumpToMember(3)" class="member-bubble w-32 h-32 rounded-full border-2 border-white/10 overflow-hidden grayscale opacity-30 hover:opacity-100 transform translate-x-16">
-                <img src="team4.jpeg" class="w-full h-full object-cover">
-                </div>
-                <div onclick="jumpToMember(4)" class="member-bubble w-24 h-24 rounded-full border-2 border-white/10 overflow-hidden grayscale opacity-30 hover:opacity-100">
-                <img src="team1.jpeg" class="w-full h-full object-cover">
-                </div>
-            </div>
-            
-            </div>
-        </div>
-        </section>
-
-      <section id="gallery" class="py-24 md:py-32 bg-black scroll-mt-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-5xl sm:text-6xl font-extrabold text-center mb-16 tracking-tighter">
-            <span class="text-wie-white">Our</span>
-            <span class="text-wie-purple">Gallery</span>
-            </h2>
-
-            <div id="drive-gallery" 
-                class="flex flex-nowrap gap-6 overflow-x-auto pb-12 snap-x snap-mandatory no-scrollbar cursor-grab active:cursor-grabbing" 
-                style="scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior-x: contain;">
-            </div>
-
-            <div class="flex justify-center mt-8">
-            <a href="#" class="px-8 py-3 border-2 border-wie-purple text-wie-purple font-bold text-sm uppercase rounded-full transition duration-300 hover:bg-wie-purple hover:text-black tracking-widest">
-                View Full Gallery
-            </a>
-            </div>
-        </div>
-        </section>
 
       <section id="events" class="py-24 md:py-32 bg-black scroll-mt-24">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -443,11 +432,44 @@
                     <p class="event-description">
                     A hands-on robotics exploration event designed to spark curiosity and technical confidence.
                     </p>
-                    <p class="text-sm text-gray-400 mt-4">20–23 June 2025</p>
+                    <p class="text-sm text-gray-400 mt-4">20-23 June 2025</p>
                 </div>
                 </div>
             </div>
         </section>
+      
+        <section id="gallery" class="py-24 md:py-32 bg-black scroll-mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-5xl sm:text-6xl font-extrabold text-center mb-16 tracking-tighter">
+            <span class="text-wie-white">Our</span>
+            <span class="text-wie-purple">Gallery</span>
+            </h2>
+            <div id="drive-gallery" 
+                class="flex flex-nowrap gap-6 overflow-x-auto pb-12 snap-x snap-mandatory no-scrollbar cursor-grab active:cursor-grabbing" 
+                style="scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior-x: contain;">
+            </div>
+
+            <div class="flex justify-center mt-8">
+            <a href="#" class="px-8 py-3 border-2 border-wie-purple text-wie-purple font-bold text-sm uppercase rounded-full transition duration-300 hover:bg-wie-purple hover:text-black tracking-widest">
+                View Full Gallery
+            </a>
+            </div>
+        </div>
+        </section>
+
+        <section id="team" class="py-24 md:py-32 bg-black scroll-mt-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-5xl sm:text-6xl font-extrabold text-center mb-16 tracking-tighter">
+              <span class="text-wie-white">Our</span>
+              <span class="text-wie-purple">Team</span>
+          </h2>
+
+          <div id="team-scroll" class="flex flex-nowrap gap-8 overflow-x-auto pb-12 snap-x snap-mandatory no-scrollbar" 
+              style="scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior-x: contain;">
+              </div>
+      </div>
+  </section>
+
 
       <section id="join" class="py-24 md:py-32 bg-black">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -462,7 +484,6 @@
             <p class="text-xl text-gray-400 mb-10">
               Join our mission to empower women in engineering and technology.
             </p>
-
             <button
               class="px-10 py-4 bg-wie-purple text-black font-bold text-xl uppercase rounded-full shadow-lg transition duration-300 hover:bg-wie-purple/80 hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-wie-purple focus:ring-opacity-50 tracking-wider"
             >
@@ -477,16 +498,13 @@
       document.addEventListener("DOMContentLoaded", () => {
         const menuBtn = document.getElementById("mobile-menu-btn");
         const mobileMenu = document.getElementById("mobile-menu");
-
         const toggleMenu = () => {
           const isExpanded =
             menuBtn.getAttribute("aria-expanded") === "true" || false;
           menuBtn.setAttribute("aria-expanded", !isExpanded);
           mobileMenu.classList.toggle("hidden");
         };
-
         menuBtn.addEventListener("click", toggleMenu);
-        // Close menu when a link is clicked
         mobileMenu.querySelectorAll("a").forEach((link) => {
           link.addEventListener("click", () => {
             if (!mobileMenu.classList.contains("hidden")) {
@@ -496,16 +514,13 @@
         });
       });
     </script>
-
     <script>
 
-    // 1. YOUR SETTINGS
     const DRIVE_API_URL = CONFIG.DRIVE_API_URL;
 
-    // 2. THE GALLERY FUNCTION
     async function loadGallery() {
         const container = document.getElementById('drive-gallery');
-        if (!container) return; // Safety check
+        if (!container) return; 
 
         try {
         const response = await fetch(DRIVE_API_URL);
@@ -527,10 +542,7 @@
         container.innerHTML = '<p class="text-red-500 w-full text-center">Failed to connect to Drive.</p>';
         }
     }
-
-    // 3. RUN EVERYTHING WHEN THE PAGE LOADS
     document.addEventListener("DOMContentLoaded", () => {
-        // Handle Mobile Menu
         const menuBtn = document.getElementById("mobile-menu-btn");
         const mobileMenu = document.getElementById("mobile-menu");
 
@@ -548,75 +560,40 @@
             });
         });
         }
-
-        // RUN THE GALLERY LOADER HERE
     loadGallery();
   });
+      const teamMembers = [
+    { name: "Shubhi Sharma", pos: "Faculty Advisor", img: "team1.jpeg" },
+    { name: "S", pos: "TECHNICAL LEAD", img: "team2.jpeg" },
+    { name: "Priya Das", pos: "WEB DEVELOPER", img: "team3.jpeg" },
+    { name: "Ananya Roy", pos: "EVENT MANAGER", img: "team4.jpeg" },
+    { name: "Mehak Singh", pos: "UI/UX DESIGNER", img: "team1.jpeg" },
+    { name: "Riya Verma", pos: "OUTREACH HEAD", img: "team2.jpeg" },
+    { name: "Janhvi Badwe", pos: "CONTRIBUTOR", img: "team3.jpeg" }
+  ];
 
-  // 1. Your Team Data (Local only, no backend needed)
-        const teamMembers = [
-            { name: "Arya Sharma", pos: "LEAD COORDINATOR", img: "team1.jpeg" },
-            { name: "Sanya Kaur", pos: "TECHNICAL LEAD", img: "team2.jpeg" },
-            { name: "Priya Das", pos: "WEB DEVELOPER", img: "team3.jpeg" },
-            { name: "Ananya Roy", pos: "EVENT MANAGER", img: "team4.jpeg" },
-            { name: "Mehak Singh", pos: "UI/UX DESIGNER", img: "team1.jpeg" },
-            { name: "Riya Verma", pos: "OUTREACH HEAD", img: "team2.jpeg" }
-        ];
+  function initTeamScroll() {
+      const scrollContainer = document.getElementById('team-scroll');
+      if (!scrollContainer) return;
 
-        let currentIndex = 0;
-
-        // 2. The Core Update Function
-        function updateUI(index) {
-            const card = document.getElementById('featured-card');
-            const watermark = document.getElementById('bg-watermark');
-            const nameEl = document.getElementById('team-name');
-            const posEl = document.getElementById('team-pos');
-            const imgEl = document.getElementById('team-img');
-
-            if (!card || !watermark) return;
-
-            // Smooth transition out
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(15px) scale(0.98)';
-            watermark.style.opacity = '0';
-
-            setTimeout(() => {
-                // Update content from the array
-                nameEl.innerText = teamMembers[index].name;
-                posEl.innerText = teamMembers[index].pos;
-                imgEl.src = teamMembers[index].img;
-                watermark.src = teamMembers[index].img;
-
-                // Smooth transition in
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0) scale(1)';
-                watermark.style.opacity = '0.15';
-            }, 400);
-        }
-
-        // 3. Navigation Functions (Fixed to be global)
-        window.nextMember = function() {
-            currentIndex = (currentIndex + 1) % teamMembers.length;
-            updateUI(currentIndex);
-        };
-
-        window.prevMember = function() {
-            currentIndex = (currentIndex - 1 + teamMembers.length) % teamMembers.length;
-            updateUI(currentIndex);
-        };
-
-        window.jumpToMember = function(index) {
-            if (index >= 0 && index < teamMembers.length) {
-                currentIndex = index;
-                updateUI(currentIndex);
-            }
-        };
-
-        // 4. Initialization
-        document.addEventListener('DOMContentLoaded', () => {
-            // Initialize the first member
-            updateUI(0);
-        });
+      scrollContainer.innerHTML = teamMembers.map(member => `
+          <div class="event-card event-card-base min-w-[280px] sm:min-w-[320px] snap-center flex flex-col items-center text-center">
+              <div class="w-32 h-32 mb-6 rounded-full overflow-hidden border-2 border-wie-purple/30">
+                  <img src="${member.img}" class="w-full h-full object-cover" alt="${member.name}">
+              </div>
+              <div>
+                  <h3 class="text-2xl font-bold text-white mb-1 uppercase tracking-tight">${member.name}</h3>
+                  <p class="text-wie-purple font-semibold text-xs tracking-widest uppercase">${member.pos}</p>
+              </div>
+              <p class="text-gray-400 text-sm mt-4 leading-relaxed">
+                  Core team member at GDG Campus UPES, driving innovation and community growth.
+              </p>
+          </div>
+      `).join('');
+  }
+  document.addEventListener("DOMContentLoaded", () => {
+      initTeamScroll();
+  });
 </script>
     
   </body>

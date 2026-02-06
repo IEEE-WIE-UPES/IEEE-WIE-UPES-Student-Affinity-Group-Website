@@ -121,29 +121,11 @@
         color: #bbb; /* Lighter grey for descriptions */
         flex-grow: 1; /* Allows description to take available space */
       }
-      /* Hide scrollbar for the team navigator */
-    .team-nav-scroll::-webkit-scrollbar {
-        display: none;
-    }
-    .team-nav-scroll {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
-
-    .nav-item {
-        transition: all 0.3s ease;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .nav-item.active-member {
-        border-color: #A087FF;
-        background-color: rgba(160, 135, 255, 0.1);
-        transform: translateY(-5px);
-    }
-    /* Ensure the section is pure black to match the rest of the site */
+     /* --- Team Section Seamless Blend Fix --- */
     #team {
         position: relative;
-        background-color: #000000;
+        /* Ensure the main section is pure black to match the rest of the site */
+        background-color: #000000; 
         z-index: 1;
     }
 
@@ -158,31 +140,36 @@
         pointer-events: none;
     }
 
-        /* Clean Horizontal Scrollbar */
-    .team-scroll-container::-webkit-scrollbar {
-        height: 8px;
-    }
-    .team-scroll-container::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 10px;
-    }
-    .team-scroll-container::-webkit-scrollbar-thumb {
-        background: #A087FF;
-        border-radius: 10px;
+    /* This creates the "fade" effect so you don't see a harsh color line */
+    #bg-container::before,
+    #bg-container::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 25%; /* Adjust this percentage to make the fade longer or shorter */
+        z-index: 2;
     }
 
-    .team-member-card {
-        min-width: 250px; /* Adjust width to show 3-4 members at once */
-        transition: transform 0.3s ease;
+    #bg-container::before {
+        top: 0;
+        background: linear-gradient(to bottom, #000000, transparent);
     }
 
-    .team-member-card:hover {
-        transform: translateY(-10px);
+    #bg-container::after {
+        bottom: 0;
+        background: linear-gradient(to top, #000000, transparent);
     }
 
-    /* Ensure the background is pure black */
-    #team {
-        background-color: #000000;
+    #bg-watermark {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Keeping the watermark subtle and dark */
+        filter: blur(30px) brightness(0.3) grayscale(100%);
+        opacity: 0.15;
+        transform: scale(1.1);
+        transition: all 0.8s ease-in-out;
     }
     </style>
   </head>
@@ -319,38 +306,59 @@
         </div>
       </section>
       
-      <section id="team" class="relative py-32 min-h-screen flex flex-col items-center bg-black scroll-mt-24">
-            <div id="bg-container">
-                <img id="bg-watermark" src="team1.jpeg" alt="Member Background" class="opacity-15">
-            </div>
-            <div class="relative z-10 max-w-7xl mx-auto px-4 w-full">
-                <h2 class="text-5xl md:text-6xl font-black text-center mb-16 tracking-tighter uppercase">
-                    <span class="text-wie-white">Our</span> <span class="text-wie-purple">Team</span>
-                </h2>
+      <section id="team" class="relative py-32 min-h-screen flex items-center justify-center overflow-hidden bg-black scroll-mt-24">
+  
+        <div id="bg-container">
+            <img id="bg-watermark" src="team1.jpeg" alt="Member Background">
+        </div>
 
-                <div class="w-full max-w-5xl mx-auto mb-16">
-                    <div id="team-navigator" class="team-nav-scroll flex gap-8 overflow-x-auto pb-6 snap-x snap-mandatory">
-                        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 w-full text-center">
+            <h2 class="text-5xl md:text-6xl font-black mb-24 tracking-tighter">
+            <span class="text-wie-white">Our</span> 
+            <span class="text-wie-purple">Team</span>
+            </h2>
+
+            <div class="relative flex items-center justify-center min-h-[550px]">
+            
+            <div class="absolute left-10 lg:left-20 flex flex-col gap-24 hidden xl:flex">
+                <div onclick="jumpToMember(1)" class="member-bubble w-24 h-24 rounded-full border-2 border-white/10 overflow-hidden grayscale opacity-30 hover:opacity-100">
+                <img src="team2.jpeg" class="w-full h-full object-cover">
                 </div>
-
-                <div class="flex justify-center">
-                    <div id="featured-card" class="relative w-full max-w-2xl bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[3rem] p-10 md:p-16 shadow-2xl transition-all duration-500">
-                        <div class="flex flex-col md:flex-row items-center gap-10">
-                            <div class="w-40 h-40 flex-shrink-0 border-2 border-wie-purple rounded-3xl overflow-hidden shadow-lg">
-                                <img id="team-img" src="team1.jpeg" class="w-full h-full object-cover rounded-2xl" />
-                            </div>
-                            
-                            <div class="text-center md:text-left">
-                                <h3 id="team-name" class="text-4xl font-black text-white uppercase tracking-tighter">Arya Sharma</h3>
-                                <p id="team-pos" class="text-wie-purple font-bold text-xl mt-2 tracking-[0.2em] uppercase">Lead Coordinator</p>
-                                <p class="text-gray-400 mt-6 leading-relaxed">
-                                    Dedicated to fostering an inclusive environment for women in STEM, leading initiatives that empower the next generation of engineers.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                <div onclick="jumpToMember(2)" class="member-bubble w-32 h-32 rounded-full border-2 border-white/10 overflow-hidden grayscale opacity-30 hover:opacity-100 transform -translate-x-16">
+                <img src="team3.jpeg" class="w-full h-full object-cover">
                 </div>
             </div>
+
+            <div id="featured-card" class="relative w-full max-w-md bg-[#0A0A0A]/80 backdrop-blur-2xl border border-white/10 rounded-[3rem] p-12 shadow-[0_0_60px_rgba(0,0,0,0.8)] transition-all duration-500">
+                <div class="flex flex-col items-center">
+                <div class="w-52 h-52 mb-10 p-1.5 border-2 border-wie-purple rounded-[2rem] overflow-hidden shadow-[0_0_40px_rgba(160,135,255,0.2)]">
+                    <img id="team-img" src="team1.jpeg" class="w-full h-full object-cover rounded-[1.8rem]" />
+                </div>
+                <h3 id="team-name" class="text-4xl font-black text-white uppercase tracking-tighter">Arya Sharma</h3>
+                <p id="team-pos" class="text-wie-purple font-bold text-xl mt-3 tracking-[0.25em]">LEAD COORDINATOR</p>
+                
+                <div class="flex mt-14 w-full border-t border-white/5 pt-10 gap-10">
+                    <button onclick="prevMember()" class="flex-1 flex justify-center text-white/50 hover:text-wie-purple transition-all transform active:scale-90">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+                    </button>
+                    <button onclick="nextMember()" class="flex-1 flex justify-center text-white/50 hover:text-wie-purple transition-all transform active:scale-90">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                </div>
+                </div>
+            </div>
+
+            <div class="absolute right-10 lg:right-20 flex flex-col gap-24 hidden xl:flex">
+                <div onclick="jumpToMember(3)" class="member-bubble w-32 h-32 rounded-full border-2 border-white/10 overflow-hidden grayscale opacity-30 hover:opacity-100 transform translate-x-16">
+                <img src="team4.jpeg" class="w-full h-full object-cover">
+                </div>
+                <div onclick="jumpToMember(4)" class="member-bubble w-24 h-24 rounded-full border-2 border-white/10 overflow-hidden grayscale opacity-30 hover:opacity-100">
+                <img src="team1.jpeg" class="w-full h-full object-cover">
+                </div>
+            </div>
+            
+            </div>
+        </div>
         </section>
 
       <section id="gallery" class="py-24 md:py-32 bg-black scroll-mt-24">
@@ -546,57 +554,69 @@
   });
 
   // 1. Your Team Data (Local only, no backend needed)
-      const teamMembers = [
-    { name: "Arya Sharma", pos: "LEAD COORDINATOR", img: "team1.jpeg" },
-    { name: "Sanya Kaur", pos: "TECHNICAL LEAD", img: "team2.jpeg" },
-    { name: "Priya Das", pos: "WEB DEVELOPER", img: "team3.jpeg" },
-    { name: "Ananya Roy", pos: "EVENT MANAGER", img: "team4.jpeg" },
-    { name: "Mehak Singh", pos: "UI/UX DESIGNER", img: "team1.jpeg" },
-    { name: "Riya Verma", pos: "OUTREACH HEAD", img: "team2.jpeg" }
-];
+        const teamMembers = [
+            { name: "Arya Sharma", pos: "LEAD COORDINATOR", img: "team1.jpeg" },
+            { name: "Sanya Kaur", pos: "TECHNICAL LEAD", img: "team2.jpeg" },
+            { name: "Priya Das", pos: "WEB DEVELOPER", img: "team3.jpeg" },
+            { name: "Ananya Roy", pos: "EVENT MANAGER", img: "team4.jpeg" },
+            { name: "Mehak Singh", pos: "UI/UX DESIGNER", img: "team1.jpeg" },
+            { name: "Riya Verma", pos: "OUTREACH HEAD", img: "team2.jpeg" }
+        ];
 
-        function initTeamNavigator() {
-            const nav = document.getElementById('team-navigator');
-            if (!nav) return;
+        let currentIndex = 0;
 
-            nav.innerHTML = teamMembers.map((member, index) => `
-                <div onclick="selectMember(${index})" 
-                    id="nav-item-${index}" 
-                    class="nav-item snap-center text-center ${index === 0 ? 'active-member' : ''}">
-                    <div class="w-32 h-32 mx-auto mb-4 rounded-2xl overflow-hidden shadow-md">
-                        <img src="${member.img}" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-300">
-                    </div>
-                    <p class="text-xs font-bold text-white uppercase tracking-widest">${member.name}</p>
-                </div>
-            `).join('');
-        }
-
-        window.selectMember = function(index) {
+        // 2. The Core Update Function
+        function updateUI(index) {
             const card = document.getElementById('featured-card');
             const watermark = document.getElementById('bg-watermark');
-            
-            // Smooth transition
+            const nameEl = document.getElementById('team-name');
+            const posEl = document.getElementById('team-pos');
+            const imgEl = document.getElementById('team-img');
+
+            if (!card || !watermark) return;
+
+            // Smooth transition out
             card.style.opacity = '0';
-            card.style.transform = 'translateY(10px)';
+            card.style.transform = 'translateY(15px) scale(0.98)';
             watermark.style.opacity = '0';
 
             setTimeout(() => {
-                document.getElementById('team-name').innerText = teamMembers[index].name;
-                document.getElementById('team-pos').innerText = teamMembers[index].pos;
-                document.getElementById('team-img').src = teamMembers[index].img;
+                // Update content from the array
+                nameEl.innerText = teamMembers[index].name;
+                posEl.innerText = teamMembers[index].pos;
+                imgEl.src = teamMembers[index].img;
                 watermark.src = teamMembers[index].img;
 
+                // Smooth transition in
                 card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
+                card.style.transform = 'translateY(0) scale(1)';
                 watermark.style.opacity = '0.15';
-            }, 300);
+            }, 400);
+        }
 
-            // Update active thumbnail
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active-member'));
-            document.getElementById(`nav-item-${index}`).classList.add('active-member');
+        // 3. Navigation Functions (Fixed to be global)
+        window.nextMember = function() {
+            currentIndex = (currentIndex + 1) % teamMembers.length;
+            updateUI(currentIndex);
         };
 
-        document.addEventListener('DOMContentLoaded', initTeamNavigator);
+        window.prevMember = function() {
+            currentIndex = (currentIndex - 1 + teamMembers.length) % teamMembers.length;
+            updateUI(currentIndex);
+        };
+
+        window.jumpToMember = function(index) {
+            if (index >= 0 && index < teamMembers.length) {
+                currentIndex = index;
+                updateUI(currentIndex);
+            }
+        };
+
+        // 4. Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize the first member
+            updateUI(0);
+        });
 </script>
     
   </body>
